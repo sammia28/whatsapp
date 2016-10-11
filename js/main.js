@@ -3,25 +3,35 @@ window.addEventListener("load",function() {
     inputMensaje.addEventListener("keydown", function(){
         if (window.event.keyCode == 13) {
             mensajesEnviados();
-            horaPublicacion();
-        };
+        }
     });	
-    var conversacion = document.getElementById("conversacion");
+ 
     function mensajesEnviados(){
-        var enviarMensaje = document.createElement("div");
-        enviarMensaje.setAttribute("class", "w-message, w-message-out, w-message-text");
-        enviarMensaje.innerHTML = inputMensaje.value;
-        conversacion.appendChild(enviarMensaje, conversacion.childNodes[0]);
-        document.getElementById("mensajes").value = "";
-
-    }
-    function horaPublicacion (){
-        var horaActual = new Date ();
-        var hora = horaActual.getHours();
-        var minuto = horaActual.getMinutes();
-        var horaActual = hora + ":"+ minuto;
-        var horaContenedor = document.createElement("div");
-        horaContenedor.innerHTML = horaActual;
-        conversacion.appendChild(horaContenedor, conversacion.childNodes[0]);
-    };
+        var conversacion = document.getElementById("conversacion");
+        var mensajeEnviado= document.createElement("div");
+        mensajeEnviado.classList.add("w-message", "w-message-out");
+        var mensajeEnviadoDiv = document.createElement("div");
+        mensajeEnviadoDiv.classList.add("w-message-text");
+        var parrafo = document.createElement("p");
+        
+//         hora
+        var horaPublicada = new Date ();
+        var hora = horaPublicada.getHours();
+        var minuto = horaPublicada.getMinutes();
+        var horaActual= hora + ":"+ minuto;
+        var time = document.createElement("div");
+        time.classList.add("time");
+        time.innerHTML = horaActual;
+        
+//        uniendo hijos
+        conversacion.appendChild(mensajeEnviado);
+        mensajeEnviado.appendChild(mensajeEnviadoDiv);
+        mensajeEnviadoDiv.appendChild(parrafo);
+        mensajeEnviadoDiv.appendChild(time);
+        
+        parrafo.innerHTML = inputMensaje.value;
+        inputMensaje.value = "";
+    }    
 });
+
+
